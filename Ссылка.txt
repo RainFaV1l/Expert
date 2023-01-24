@@ -1,0 +1,4 @@
+http://expert.ru.xsph.ru/
+
+Логин администратора: admin@mail.ru
+Пароль администратора: adminadmin

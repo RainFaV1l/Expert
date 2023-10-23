@@ -61,22 +61,22 @@ $competition = $competition[0];
         <div class="block__kriterys">
             <?php
             foreach ($competitionParticipants as $participant):
-                if(!empty($participant['patronymic'])) {?>
-                    <div class="user">
-                        <h2 class="name-user">
-                            <?php
-                            echo $participant['surname'] . ' ' . $participant['name'] . ' ' . $participant['patronymic'] . ' № ' . $participant['id']
-                            ?>
-                        </h2>
-                        <div class="btns__user">
-                            <form method="post" action="/competition/<?php echo $competition['id'] ?>/deleteExpert" name="deleteParticipants" class="deleteParticipants" id="deleteParticipants">
-                                <input type="text" class="hidden__input" name="participant_id" value="<?php echo $participant['id'] ?>">
-                                <input type="submit" class="delete-user" name="deleteParticipants" value="Удалить">
-                            </form>
-                            <!--                            <a href="/competition/--><?php //echo $participant['id'] ?><!--/deletePartisipant" class="delete-user">Удалить</a>-->
-                        </div>
+                ?>
+                <div class="user">
+                    <h2 class="name-user">
+                        <?php
+                        echo $participant['surname'] . ' ' . $participant['name'] . ' ' . $participant['patronymic'] . ' № ' . $participant['id']
+                        ?>
+                    </h2>
+                    <div class="btns__user">
+                        <form method="post" action="/competition/<?php echo $competition['id'] ?>/deleteExpert" name="deleteParticipants" class="deleteParticipants" id="deleteParticipants">
+                            <input type="text" class="hidden__input" name="participant_id" value="<?php echo $participant['id'] ?>">
+                            <input type="submit" class="delete-user" name="deleteParticipants" value="Удалить">
+                        </form>
+                        <!--                            <a href="/competition/--><?php //echo $participant['id'] ?><!--/deletePartisipant" class="delete-user">Удалить</a>-->
                     </div>
-                <?php }
+                </div>
+            <?php
             endforeach;
             ?>
         </div>

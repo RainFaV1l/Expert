@@ -21,7 +21,6 @@ class CompetitionController extends Controller
         ];
 
         return $vars;
-
     }
 
     public function showAction()
@@ -29,7 +28,6 @@ class CompetitionController extends Controller
 
         $vars = $this->showCompetitionCode();
         $this->view->render('Конкурсы', $vars);
-
     }
 
     public function adminAction()
@@ -42,7 +40,6 @@ class CompetitionController extends Controller
         ];
 
         $this->view->render('Участники администратора', $vars);
-
     }
 
     public function addAction()
@@ -59,11 +56,9 @@ class CompetitionController extends Controller
             // Вывод информации об успешной отправки формы
             $this->view->location('success', 'competition');
             $this->view->message('success', 'Успешная отправка.');
-
         }
 
         $this->view->render('Добавление конкурса');
-
     }
 
     public function addCriterionAction()
@@ -89,16 +84,15 @@ class CompetitionController extends Controller
             // Вывод информации об успешной отправки формы
             $this->view->location('success', 'competition/'  . $competition_id . '/admin');
             $this->view->message('success', 'Успешная отправка.');
-
         }
 
-        if(empty($vars['competition_id'])) View::errorCode(404);
+        if (empty($vars['competition_id'])) View::errorCode(404);
 
         $this->view->render('Добавление критерия', $vars);
-
     }
 
-    public function editCriterionAction() {
+    public function editCriterionAction()
+    {
 
         // Получаем id одного конкурса
         $this->competitioneditCriterion = $this->model->getOneCompetitionById($this->route['id']);
@@ -122,14 +116,13 @@ class CompetitionController extends Controller
             // Вывод информации об успешной отправки формы
             $this->view->location('success', 'competition/'  . $competition_id . '/admin');
             $this->view->message('success', 'Успешная отправка.');
-
         }
 
         $this->view->render('Редактирование критерия', $vars);
-
     }
 
-    public function deleteCriterionAction() {
+    public function deleteCriterionAction()
+    {
 
         // Выполняем метод вывода одного конкурса
         $this->competitionDeleteCriterion = $this->model->getOneCompetitionById($this->route['id']);
@@ -140,7 +133,7 @@ class CompetitionController extends Controller
 
         $competition_id = $vars['competition'][0]['id'];
 
-        if(!empty($_POST)) {
+        if (!empty($_POST)) {
             // Валидация формы и вывод ошибок
             if (!$this->model->deleteCriterionCompetition($_POST, $competition_id)) {
                 $this->view->message('error', $this->model->error);
@@ -150,27 +143,25 @@ class CompetitionController extends Controller
             $this->view->location('success', 'competition/' . $competition_id . '/admin');
             $this->view->message('success', 'Успешная отправка.');
         }
-
     }
 
     public function gradeAction()
     {
-        if(isset($_POST['gradeCriterionData'])) {
-//            $participant_id = $_POST['participant_id'];
+        if (isset($_POST['gradeCriterionData'])) {
+            //            $participant_id = $_POST['participant_id'];
             $_SESSION['participant_id'] = $_POST['participant_id'];
         }
+
 
         $this->allCriterionCountGrade = $this->model->getAllCriterion($this->route['id']);
         $this->notRatedCriterionCountGrade = $this->model->getNotRatedCriterion($this->route['id']);
         $this->ratedCriterionCountGrade = $this->model->getRatedCriterion($this->route['id']);
 
-        if(isset($_POST['gradeNotRatedCat'])) {
+        if (isset($_POST['gradeNotRatedCat'])) {
             $this->allCriterionGrade = $this->model->getNotRatedCriterion($this->route['id']);
-        }
-        else if(isset($_POST['gradeRatedCat'])) {
+        } else if (isset($_POST['gradeRatedCat'])) {
             $this->allCriterionGrade = $this->model->getRatedCriterion($this->route['id']);
-        }
-        else {
+        } else {
             $this->allCriterionGrade = $this->model->getAllCriterion($this->route['id']);
         }
 
@@ -186,15 +177,16 @@ class CompetitionController extends Controller
             'countNotRated' => $this->notRatedCriterionCountGrade[1][0],
         ];
 
-        if(isset($_POST['gradeCriterion'])) {
+        if (isset($_POST)) {
             // Валидация формы и вывод ошибок
             if (!$this->model->gradeCriterion($_POST)) {
-                $this->view->message('error', $this->model->error);
+                echo json_encode(['message' => 'Неудачная отправка']);
+            } else {
+                echo json_encode(['message' => 'Успешная отправка']);
             }
         }
 
         $this->view->render('Оценка конкурса', $vars);
-
     }
 
     public function oneAction()
@@ -205,7 +197,7 @@ class CompetitionController extends Controller
         $this->competition = $this->showCompetitionCode();
 
         foreach ($this->competition['competition'] as $item) {
-            if($item['id'] == $this->route['id']) {
+            if ($item['id'] == $this->route['id']) {
                 $vars = [
                     'oneCompetition' => $item,
                 ];
@@ -213,10 +205,9 @@ class CompetitionController extends Controller
             }
         }
 
-        if(!$vars) View::errorCode(404);
+        if (!$vars) View::errorCode(404);
 
         $this->view->render('Страница конкурса', $vars);
-
     }
 
     public function showCompetitionByIdCode()
@@ -231,13 +222,13 @@ class CompetitionController extends Controller
             'showCompetitionById' => $this->competitionEdit,
         ];
 
-        if(!$vars) View::errorCode(404);
+        if (!$vars) View::errorCode(404);
 
         return $vars;
-
     }
 
-    public function editAction() {
+    public function editAction()
+    {
 
         $this->competitionEdit = $this->showCompetitionByIdCode();
 
@@ -256,31 +247,29 @@ class CompetitionController extends Controller
             // Вывод информации об успешной отправки формы
             $this->view->location('success', 'competition');
             $this->view->message('success', 'Успешная отправка.');
-
         }
 
         $this->view->render('Редактирование конкурса', $vars);
-
     }
 
-    public function deleteAction() {
+    public function deleteAction()
+    {
 
         $this->competitionEdit = $this->showCompetitionByIdCode();
 
         // Выполняем удаление
         $this->model->deleteCompetition($this->competitionEdit['showCompetitionById'][0]['id']);
         $this->view->redirect('competition');
-
     }
 
-    public function completeAction() {
+    public function completeAction()
+    {
 
         $this->competitionEdit = $this->showCompetitionByIdCode();
 
         // Выполняем удаление
         $this->model->completeCompetition($this->competitionEdit['showCompetitionById'][0]['id']);
         $this->view->redirect('competition/' . $this->route['id'] . '/admin');
-
     }
 
     public function participantsAction()
@@ -296,16 +285,17 @@ class CompetitionController extends Controller
         ];
 
         $this->view->render('Участники конкурса', $vars);
-
     }
 
     public function resultAction()
     {
 
         $this->competitionResult = $this->model->getCompetitionResult($this->route['id']);
-        if (!$this->competitionResult) : $this->view->redirect('competition/' . $this->route['id'] . '/admin'); endif;
+        if (!$this->competitionResult) : $this->view->redirect('competition/' . $this->route['id'] . '/admin');
+        endif;
         $this->competitionResultCount = $this->model->getCompetitionResultCount($this->route['id']);
-        if (!$this->competitionResultCount) : $this->view->redirect('competition/' . $this->route['id'] . '/admin'); endif;
+        if (!$this->competitionResultCount) : $this->view->redirect('competition/' . $this->route['id'] . '/admin');
+        endif;
 
         $vars = [
             'competitionResult' => $this->competitionResult,
@@ -313,23 +303,22 @@ class CompetitionController extends Controller
         ];
 
         $this->view->render('Результат конкурса', $vars);
-
     }
 
-    public function resultСompleteAction() {
+    public function resultСompleteAction()
+    {
 
         // Выполняем завершение конкурса
         $this->model->resultCompleteCompetition($this->route['id']);
         $this->view->redirect('competition/' . $this->route['id'] . '/result');
-
     }
 
-    public function resultActiveAction() {
+    public function resultActiveAction()
+    {
 
         // Выполняем завершение конкурса
         $this->model->resultActiveCompetition($this->route['id']);
         $this->view->redirect('competition/' . $this->route['id'] . '/admin');
-
     }
 
     public function addUserAction()
@@ -355,16 +344,15 @@ class CompetitionController extends Controller
             // Вывод информации об успешной отправки формы
             $this->view->location('success', 'competition/'  . $competition_id . '/participants');
             $this->view->message('success', 'Успешная отправка.');
-
         }
 
-        if(empty($vars['competition_id'])) View::errorCode(404);
+        if (empty($vars['competition_id'])) View::errorCode(404);
 
         $this->view->render('Участники конкурса', $vars);
-
     }
 
-    public function deleteUserAction() {
+    public function deleteUserAction()
+    {
 
         // Выполняем метод вывода одного конкурса
         $this->competitionAddUser = $this->model->getOneCompetitionById($this->route['id']);
@@ -375,7 +363,7 @@ class CompetitionController extends Controller
 
         $competition_id = $vars['competition_id'][0]['id'];
 
-        if(!empty($_POST)) {
+        if (!empty($_POST)) {
             // Валидация формы и вывод ошибок
             if (!$this->model->deleteUserCompetition($_POST, $competition_id)) {
                 $this->view->message('error', $this->model->error);
@@ -403,7 +391,6 @@ class CompetitionController extends Controller
         ];
 
         $this->view->render('Эксперты конкурса', $vars);
-
     }
 
     public function addExpertAction()
@@ -429,16 +416,15 @@ class CompetitionController extends Controller
             // Вывод информации об успешной отправки формы
             $this->view->location('success', 'competition/'  . $competition_id . '/experts');
             $this->view->message('success', 'Успешная отправка.');
-
         }
 
-        if(empty($vars['competition_id'])) View::errorCode(404);
+        if (empty($vars['competition_id'])) View::errorCode(404);
 
         $this->view->render('Добавление эксперта', $vars);
-
     }
 
-    public function deleteExpertAction() {
+    public function deleteExpertAction()
+    {
 
         // Выполняем метод вывода одного конкурса
         $this->competitionAddExpert = $this->model->getOneCompetitionById($this->route['id']);
@@ -449,7 +435,7 @@ class CompetitionController extends Controller
 
         $competition_id = $vars['competition_id'][0]['id'];
 
-        if(!empty($_POST)) {
+        if (!empty($_POST)) {
             // Валидация формы и вывод ошибок
             if (!$this->model->deleteUserCompetition($_POST, $competition_id)) {
                 $this->view->message('error', $this->model->error);
@@ -463,5 +449,4 @@ class CompetitionController extends Controller
         // $this->view->render('Участники конкурса', $vars);
 
     }
-
 }

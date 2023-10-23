@@ -60,7 +60,6 @@
             ?><a href="/competition/<?php echo $criterion[0]['competition_id'] ?>/complete" class="cat__conkurs-admin">Отменить конкурс</a><?php
         endif;
         ?>
-        <a href="/competition/<?php echo $criterion[0]['competition_id'] ?>/complete" class="cat__conkurs-admin">Отменить конкурс</a>
     </div>
     <div class="users__content">
         <!-- УЧАСТНИКИ -->

@@ -1,8 +1,9 @@
 <?php
-    // Шаблон страниц
+// Шаблон страниц
 ?>
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,77 +15,80 @@
     <script src="../../public/scripts/accordion.js" defer></script>
     <script src="../../public/scripts/progressbar.js" defer></script>
     <script src="../../public/scripts/form.js"></script>
+    <script src="../../public/scripts/fetch.js"></script>
     <link rel="shortcut icon" href="../../public/images/logo.png" type="image/png">
     <title>
         <?php
-            echo $title;
+        echo $title;
         ?>
     </title>
 </head>
+
 <body>
 
-<div class="burger-block">
-    <div class="burger__inner">
-        <div class="close">
-            X
-        </div>
-        <?php
-            if(isset($_SESSION['user'])): ?>
+    <div class="burger-block">
+        <div class="burger__inner">
+            <div class="close">
+                X
+            </div>
+            <?php
+            if (isset($_SESSION['user'])) : ?>
                 <a href="/logout" class="btn__burger">Выход</a>
-            <?php else: ?>
+            <?php else : ?>
                 <a href="/login" class="btn__burger">Авторизоваться</a>
             <?php endif;
-        ?>
-    </div>
-</div>
-
-<!-- wrapper -->
-<div class="wrapper">
-    <!-- header -->
-    <header class="header">
-        <div class="header__inner">
-            <a href="/" class="logo logo__header">
-                Система оценивания
-            </a>
-            <?php
-            if(isset($_SESSION['user'])): ?>
-                <div class="header__menu">
-                    <a href="/competition" class="menu__link">Конкурсы</a>
-                    <a href="/logout" class="btn__header">Выход</a>
-                </div>
-            <?php else: ?>
-                <a href="/login" class="btn__header">Авторизоваться</a>
-            <?php endif;
             ?>
-            <div class="burger">
-                <img src="../../public/images/burger.png" alt="burger">
+        </div>
+    </div>
+
+    <!-- wrapper -->
+    <div class="wrapper">
+        <!-- header -->
+        <header class="header">
+            <div class="header__inner">
+                <a href="/" class="logo logo__header">
+                    Система оценивания
+                </a>
+                <?php
+                if (isset($_SESSION['user'])) : ?>
+                    <div class="header__menu">
+                        <a href="/competition" class="menu__link">Конкурсы</a>
+                        <a href="/logout" class="btn__header">Выход</a>
+                    </div>
+                <?php else : ?>
+                    <a href="/login" class="btn__header">Авторизоваться</a>
+                <?php endif;
+                ?>
+                <div class="burger">
+                    <img src="../../public/images/burger.png" alt="burger">
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- main -->
-    <main class="main">
-        <?php
-        // Контент
-        if($content) {
-            echo $content;
-        } else {
-            echo 'Ошибка при выводе контента.';
-        }
-        ?>
-    </main>
+        <!-- main -->
+        <main class="main">
+            <?php
+            // Контент
+            if ($content) {
+                echo $content;
+            } else {
+                echo 'Ошибка при выводе контента.';
+            }
+            ?>
+        </main>
 
-    <!-- footer -->
-    <footer class="footer" id="#grade">
-        <div class="footer__inner">
-            <a href="/" class="logo logo__footer">
-                Система оценивания
-            </a>
-            <a href="#" class="btn__footer">Поддержка телеграмм</a>
-            <a href="#" class="btn__footer">admin@hostclub.online</a>
-        </div>
-    </footer>
-</div>
+        <!-- footer -->
+        <footer class="footer" id="#grade">
+            <div class="footer__inner">
+                <a href="/" class="logo logo__footer">
+                    Система оценивания
+                </a>
+                <a href="#" class="btn__footer">Поддержка телеграмм</a>
+                <a href="#" class="btn__footer">admin@hostclub.online</a>
+            </div>
+        </footer>
+    </div>
 
 </body>
+
 </html>

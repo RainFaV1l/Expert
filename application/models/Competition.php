@@ -12,11 +12,12 @@ class Competition extends Model
     public $error;
 
     // Вывод конкурсов
-    public function getCompetition() {
+    public function getCompetition()
+    {
 
-        if(isset($_SESSION['user'])):
+        if (isset($_SESSION['user'])) :
 
-            if($_SESSION['user']['role'] === 1):
+            if ($_SESSION['user']['role'] === 1) :
 
                 // Находим конкурсы, в которых участвует данный пользователь
                 $params = [
@@ -31,7 +32,7 @@ class Competition extends Model
 
             endif;
 
-            if($_SESSION['user']['role'] === 2):
+            if ($_SESSION['user']['role'] === 2) :
 
                 // Находим конкурсы, в которых судит данный эксперт
                 $params = [
@@ -47,7 +48,7 @@ class Competition extends Model
 
             endif;
 
-            if($_SESSION['user']['role'] === 3):
+            if ($_SESSION['user']['role'] === 3) :
 
                 // Вывод всех конкурсов
                 $result = $this->db->row('SELECT * FROM `competition`');
@@ -57,11 +58,11 @@ class Competition extends Model
             endif;
 
         endif;
-
     }
 
     // Вывод одного конкурса
-    public function getOneCompetitionById($id) {
+    public function getOneCompetitionById($id)
+    {
 
         $params = [
             'id' => $id,
@@ -69,16 +70,16 @@ class Competition extends Model
 
         $result = $this->db->row('SELECT * FROM `competition` WHERE `id` = :id', $params);
 
-//        if(empty($result)) {
-//            View::errorCode(404);
-//        }
+        //        if(empty($result)) {
+        //            View::errorCode(404);
+        //        }
 
         return $result;
-
     }
 
     // Вывод критериев
-    public function getCriterionByCompetition($id) {
+    public function getCriterionByCompetition($id)
+    {
 
         $params = [
             'id' => $id,
@@ -87,11 +88,11 @@ class Competition extends Model
         $result = $this->db->row('SELECT * FROM `evaluation_criterion` WHERE `id` = :id', $params);
 
         return $result;
-
     }
 
     // Вывод пользователя по id
-    public function getCompetitionUserByUserId($id) {
+    public function getCompetitionUserByUserId($id)
+    {
 
         $params = [
             'id' => $id,
@@ -99,15 +100,15 @@ class Competition extends Model
 
         $result = $this->db->row('SELECT * FROM `users` WHERE `id` = :id', $params);
 
-//        if(empty($result)) {
-//            View::errorCode(404);
-//        }
+        //        if(empty($result)) {
+        //            View::errorCode(404);
+        //        }
 
         return $result;
-
     }
 
-    public function getAllCriterion($competition_id) {
+    public function getAllCriterion($competition_id)
+    {
 
         $params = [
             'id' => $competition_id,
@@ -119,9 +120,10 @@ class Competition extends Model
         return [$result, $count];
     }
 
-    public function getRatedCriterion($competition_id) {
+    public function getRatedCriterion($competition_id)
+    {
 
-        if(isset($_SESSION['user']) AND $_SESSION['user']['role'] == 2) {
+        if (isset($_SESSION['user']) and $_SESSION['user']['role'] == 2) {
             $expert_id = $_SESSION['user']['id'];
         }
 
@@ -138,9 +140,10 @@ class Competition extends Model
         return [$result, $count];
     }
 
-    public function getNotRatedCriterion($competition_id) {
+    public function getNotRatedCriterion($competition_id)
+    {
 
-        if(isset($_SESSION['user']) AND $_SESSION['user']['role'] == 2) {
+        if (isset($_SESSION['user']) and $_SESSION['user']['role'] == 2) {
             $expert_id = $_SESSION['user']['id'];
         }
 
@@ -158,7 +161,8 @@ class Competition extends Model
     }
 
     // Вывод одного конкурса
-    public function getParticipantsWithCompetitionById($id) {
+    public function getParticipantsWithCompetitionById($id)
+    {
 
         $params = [
             'id' => $id,
@@ -167,7 +171,7 @@ class Competition extends Model
 
         $result = $this->db->row('SELECT * FROM `users_competition` JOIN `users` ON users_competition.user_id = users.id WHERE users_competition.competition_id = :id AND users_competition.user_role = :role', $params);
 
-        if(empty($result)) :
+        if (empty($result)) :
 
             $params = [
                 'id' => $id,
@@ -175,18 +179,18 @@ class Competition extends Model
 
             $result = $this->db->row('SELECT * FROM `competition` WHERE `id` = :id', $params);
 
-            if(empty($result)) {
+            if (empty($result)) {
                 View::errorCode(404);
             }
 
         endif;
 
         return $result;
-
     }
 
     // Вывод одного конкурса
-    public function getParticipantsWithCompetitionByIdExperts($id) {
+    public function getParticipantsWithCompetitionByIdExperts($id)
+    {
 
         $params = [
             'id' => $id,
@@ -195,7 +199,7 @@ class Competition extends Model
 
         $result = $this->db->row('SELECT * FROM `users_competition` JOIN `users` ON users_competition.user_id = users.id WHERE users_competition.competition_id = :id AND users_competition.user_role = :expert', $params);
 
-        if(empty($result)) :
+        if (empty($result)) :
 
             $params = [
                 'id' => $id,
@@ -203,21 +207,21 @@ class Competition extends Model
 
             $result = $this->db->row('SELECT * FROM `competition` WHERE `id` = :id', $params);
 
-            if(empty($result)) {
+            if (empty($result)) {
                 View::errorCode(404);
             }
 
         endif;
 
         return $result;
-
     }
 
     // Вывод участников конкурса
-    public function getParticipant($id) {
-        if(isset($_SESSION['user'])):
+    public function getParticipant($id)
+    {
+        if (isset($_SESSION['user'])) :
 
-            if($_SESSION['user']['role'] > 1):
+            if ($_SESSION['user']['role'] > 1) :
 
                 // Вывод всех участников данного конкурсов
                 $params = [
@@ -239,7 +243,8 @@ class Competition extends Model
     }
 
 
-    public function resultActiveCompetition($competition_id) {
+    public function resultActiveCompetition($competition_id)
+    {
         $params = [
             'status' => 1,
             'id' => $competition_id,
@@ -248,7 +253,8 @@ class Competition extends Model
         $query = $this->db->update($sql, $params);
     }
 
-    public function resultCompleteCompetition($competition_id) {
+    public function resultCompleteCompetition($competition_id)
+    {
 
         $params = [
             'id' => $competition_id,
@@ -278,7 +284,7 @@ class Competition extends Model
                 JOIN grade ON evaluation_criterion.id = grade.evaluation_criterion_id 
                 WHERE evaluation_criterion.competition_id = :competition_id AND `expert_id` = :expert_id AND grade.evaluation_criterion_id = :criterion_id';
                 $check = $this->db->row($sql, $params);
-                if(!count($check) >= 1) {
+                if (!count($check) >= 1) {
                     $params = [
                         'id' => $expert['user_id'],
                     ];
@@ -290,7 +296,7 @@ class Competition extends Model
                 }
             }
         }
-        if(!isset($_SESSION['error'])) {
+        if (!isset($_SESSION['error'])) {
             $params = [
                 'status' => 2,
                 'id' => $competition_id,
@@ -301,14 +307,17 @@ class Competition extends Model
     }
 
     // Оценка конкурса экспертом
-    public function gradeCriterion($post) {
+    public function gradeCriterion($post)
+    {
+
+        if (!$post) return false;
 
         // Сохраняем данные в переменные
         $type_id = $post['type_id'];
         $criterion_id = $post['criterion_id'];
         $competition_id = $post['competition_id'];
         $participant_id = $post['participant_id'];
-        if(isset($post['yes-no'])) :
+        if (isset($post['yes-no'])) :
             $type = $post['yes-no'];
         else :
             $_SESSION['error'] = 'Выберите ответ';
@@ -316,7 +325,7 @@ class Competition extends Model
         endif;
 
         // Проверяем введенные данные
-        if(empty($criterion_id OR $competition_id OR $participant_id)) : View::errorCode(404);
+        if (empty($criterion_id or $competition_id or $participant_id)) : View::errorCode(404);
         else :
             $params = ['criterion_id' => $criterion_id];
             $sql = 'SELECT * FROM `evaluation_criterion` WHERE `id` = :criterion_id';
@@ -324,7 +333,7 @@ class Competition extends Model
 
             $criterionScore = $result[0]['score'];
 
-            switch ($type) :
+            switch ($type):
                 case 1:
                     $score = 0;
                     break;
@@ -336,12 +345,12 @@ class Competition extends Model
                     break;
             endswitch;
 
-            if($type_id == 2) :
-                if($type == 1) :
+            if ($type_id == 2) :
+                if ($type == 1) :
                     $type = 3;
-                elseif($type == 2) :
+                elseif ($type == 2) :
                     $type = 4;
-                elseif($type == 5) :
+                elseif ($type == 5) :
                     $type = 4;
                 endif;
             endif;
@@ -356,7 +365,8 @@ class Competition extends Model
     }
 
     // Добавление конкурсов
-    public function addCompetitionValidate($post) {
+    public function addCompetitionValidate($post)
+    {
 
         // Сохраняем данные в переменные
         $name = $post['name'];
@@ -366,11 +376,11 @@ class Competition extends Model
         $path = 'public/images/' . time() . $_FILES['img']['name'];
 
         // Проверяем введенные данные
-        if(empty($name) or empty($description) or empty($date_beginning) or empty($expiration_date) or empty($_FILES['img']['size'])) :
+        if (empty($name) or empty($description) or empty($date_beginning) or empty($expiration_date) or empty($_FILES['img']['size'])) :
             $this->error = 'Заполните пустые поля.';
             return false;
 
-        elseif(!move_uploaded_file($_FILES['img']['tmp_name'], $path)):
+        elseif (!move_uploaded_file($_FILES['img']['tmp_name'], $path)) :
             $this->error = 'Не удалось загрузить файл';
             return false;
         endif;
@@ -379,11 +389,11 @@ class Competition extends Model
         VALUES (NULL, '$name', '$description', '$date_beginning', '$expiration_date', '1', '$path')");
 
         return true;
-
     }
 
     // Редактирование конкурсов
-    public function editCompetitionValidate($post, $id) {
+    public function editCompetitionValidate($post, $id)
+    {
 
         // Сохраняем данные в переменные
         $name = $post['name'];
@@ -396,15 +406,15 @@ class Competition extends Model
         ];
 
         // Проверяем введенные данные
-        if(empty($name) or empty($description) or empty($date_beginning) or empty($expiration_date)) :
+        if (empty($name) or empty($description) or empty($date_beginning) or empty($expiration_date)) :
             $this->error = 'Заполните пустые поля.';
             return false;
 
-        elseif(empty($_FILES['img']['name'])) :
+        elseif (empty($_FILES['img']['name'])) :
             $user = $this->db->update("UPDATE `competition` SET `name` = '$name', `description` = '$description', `date_beginning` = '$date_beginning', `expiration_date` = '$expiration_date' WHERE `competition`.`id` = :id", $params);
             return true;
 
-        elseif(!move_uploaded_file($_FILES['img']['tmp_name'], $path)):
+        elseif (!move_uploaded_file($_FILES['img']['tmp_name'], $path)) :
             $this->error = 'Не удалось загрузить файл';
             return false;
         endif;
@@ -412,11 +422,11 @@ class Competition extends Model
         $user = $this->db->update("UPDATE `competition` SET `name` = '$name', `description` = '$description', `date_beginning` = '$date_beginning', `expiration_date` = '$expiration_date', `path` = '$path' WHERE `competition`.`id` = :id", $params);
 
         return true;
-
     }
 
     // Метод удаления конкурса
-    public function deleteCompetition($id) {
+    public function deleteCompetition($id)
+    {
 
         $params = [
             'id' => $id,
@@ -425,21 +435,21 @@ class Competition extends Model
         $user = $this->db->delete("DELETE FROM `competition` WHERE `competition`.`id` = :id", $params);
 
         return true;
-
     }
 
     // Добавление участников
-    public function addUsersValidate($post, $competition_id) {
+    public function addUsersValidate($post, $competition_id)
+    {
 
         // Сохраняем данные в переменные
         $user_id = $post['user_id'];
 
         // Проверяем введенные данные
-        if(strlen($user_id) === 0 ) :
+        if (strlen($user_id) === 0) :
             $this->error = 'Заполните пустое поле.';
             return false;
 
-        elseif ($user_id == 0):
+        elseif ($user_id == 0) :
             $this->error = 'Заполните пустое поле.';
             return false;
         endif;
@@ -447,31 +457,31 @@ class Competition extends Model
         $user = $this->db->send("INSERT INTO `users_competition` (`id`, `competition_id`, `user_id`, `user_role`) VALUES (NULL, '$competition_id', '$user_id', 1)");
 
         return true;
-
     }
 
     // Добавление критерия
-    public function addCriterionValidate($post, $competition_id) {
+    public function addCriterionValidate($post, $competition_id)
+    {
 
         // Сохраняем данные в переменные
         $name = $post['name'];
         $score = $post['score'];
-        if(isset($post['type'])) $type = $post['type'];
+        if (isset($post['type'])) $type = $post['type'];
 
         // Проверяем введенные данные
-        if(empty($name)) :
+        if (empty($name)) :
             $this->error = 'Заполните название.';
             return false;
 
-        elseif (empty($score)):
+        elseif (empty($score)) :
             $this->error = 'Заполните количество баллов.';
             return false;
 
-        elseif (!is_numeric($score)):
+        elseif (!is_numeric($score)) :
             $this->error = 'Введите число.';
             return false;
 
-        elseif (empty($type)):
+        elseif (empty($type)) :
             $this->error = 'Выберите тип.';
             return false;
         endif;
@@ -481,40 +491,40 @@ class Competition extends Model
         $user = $this->db->send($sql);
 
         return true;
-
     }
 
     // Редактирование критерия
-    public function editCriterionValidate($post, $competition_id) {
+    public function editCriterionValidate($post, $competition_id)
+    {
 
         // Сохраняем данные в переменные
         $criterion_id = $post['criterion_id'];
         $name = $post['name'];
         $score = $post['score'];
-        if(isset($post['type'])) $type = $post['type'];
+        if (isset($post['type'])) $type = $post['type'];
 
         // Проверяем введенные данные
-        if(empty($criterion_id)) :
+        if (empty($criterion_id)) :
             View::errorCode(404);
             return false;
 
-        elseif(empty($name)) :
-//            $this->error = 'Заполните название.';
+        elseif (empty($name)) :
+            //            $this->error = 'Заполните название.';
             header('location: /competition/' . $competition_id . '/admin');
             return false;
 
-        elseif (empty($score)):
-//            $this->error = 'Заполните количество баллов.';
+        elseif (empty($score)) :
+            //            $this->error = 'Заполните количество баллов.';
             header('location: /competition/' . $competition_id . '/admin');
             return false;
 
-        elseif (!is_numeric($score)):
-//            $this->error = 'Введите число.';
+        elseif (!is_numeric($score)) :
+            //            $this->error = 'Введите число.';
             header('location: /competition/' . $competition_id . '/admin');
             return false;
 
-        elseif (empty($type)):
-//            $this->error = 'Выберите тип.';
+        elseif (empty($type)) :
+            //            $this->error = 'Выберите тип.';
             header('location: /competition/' . $competition_id . '/admin');
             return false;
         endif;
@@ -529,21 +539,21 @@ class Competition extends Model
         $user = $this->db->update($sql, $params);
 
         return true;
-
     }
 
     // Добавление участников
-    public function addExpertsValidate($post, $competition_id) {
+    public function addExpertsValidate($post, $competition_id)
+    {
 
         // Сохраняем данные в переменные
         $user_id = $post['expert_id'];
 
         // Проверяем введенные данные
-        if(strlen($user_id) === 0 ) :
+        if (strlen($user_id) === 0) :
             $this->error = 'Заполните пустое поле.';
             return false;
 
-        elseif ($user_id == 0):
+        elseif ($user_id == 0) :
             $this->error = 'Заполните пустое поле.';
             return false;
         endif;
@@ -551,11 +561,11 @@ class Competition extends Model
         $user = $this->db->send("INSERT INTO `users_competition` (`id`, `competition_id`, `user_id`, `user_role`) VALUES (NULL, '$competition_id', '$user_id', 2)");
 
         return true;
-
     }
 
     // Метод завершения конкурса
-    public function completeCompetition($id) {
+    public function completeCompetition($id)
+    {
 
         $params = [
             'id' => $id,
@@ -564,11 +574,11 @@ class Competition extends Model
         $user = $this->db->update("UPDATE `competition` SET `status` = '0' WHERE `competition`.`id` = :id", $params);
 
         return true;
-
     }
 
     // Метод вывода результата
-    public function getCompetitionResult($id) {
+    public function getCompetitionResult($id)
+    {
 
         $params = [
             'id' => $id,
@@ -579,21 +589,21 @@ class Competition extends Model
         $result = $this->db->row($sql, $params);
 
         return $result;
-
     }
 
     // Метод вывода результата и количества
-    public function getCompetitionResultCount($id) {
+    public function getCompetitionResultCount($id)
+    {
 
         $params = [
             'id' => $id,
         ];
 
         // Получаем информацию
-//        $sql = "SELECT grade.user_id, competition.id as competition_id, competition.name as competition_name, competition_status.name as competition_status_name, GROUP_CONCAT(evaluation_criterion.name SEPARATOR ', ') as evaluation_criterion_names, GROUP_CONCAT(grade.score SEPARATOR ', ') as score,
-//        GROUP_CONCAT(answer.name SEPARATOR ', ') as answer_names, GROUP_CONCAT(grade.expert_id SEPARATOR ', ') as expert_id, SUM(grade.score) as sum_score FROM `grade`
-//        JOIN `evaluation_criterion` ON grade.evaluation_criterion_id = evaluation_criterion.id JOIN `answer` ON grade.answer_id = answer.id
-//        JOIN competition ON grade.competition_id = competition.id JOIN competition_status ON competition.status = competition_status.id WHERE grade.competition_id = :id GROUP BY grade.user_id";
+        //        $sql = "SELECT grade.user_id, competition.id as competition_id, competition.name as competition_name, competition_status.name as competition_status_name, GROUP_CONCAT(evaluation_criterion.name SEPARATOR ', ') as evaluation_criterion_names, GROUP_CONCAT(grade.score SEPARATOR ', ') as score,
+        //        GROUP_CONCAT(answer.name SEPARATOR ', ') as answer_names, GROUP_CONCAT(grade.expert_id SEPARATOR ', ') as expert_id, SUM(grade.score) as sum_score FROM `grade`
+        //        JOIN `evaluation_criterion` ON grade.evaluation_criterion_id = evaluation_criterion.id JOIN `answer` ON grade.answer_id = answer.id
+        //        JOIN competition ON grade.competition_id = competition.id JOIN competition_status ON competition.status = competition_status.id WHERE grade.competition_id = :id GROUP BY grade.user_id";
 
         $sql = "SELECT grade.user_id, competition.id as competition_id, competition.name as competition_name, competition_status.name as competition_status_name, GROUP_CONCAT(evaluation_criterion.name SEPARATOR ', ') as evaluation_criterion_names, GROUP_CONCAT(grade.score SEPARATOR ', ') as score,
         GROUP_CONCAT(answer.name SEPARATOR ', ') as answer_names, SUM(grade.score) as sum_score, @row_num:=@row_num+1 as 'num' FROM `grade` 
@@ -611,16 +621,16 @@ class Competition extends Model
         //JOIN competition ON grade.competition_id = competition.id WHERE grade.competition_id = :id GROUP BY grade.user_id
 
         return $result;
-
     }
 
     // Метод удаления участника из конкурса
-    public function deleteUserCompetition($post, $id) {
+    public function deleteUserCompetition($post, $id)
+    {
 
         $participant_id = $post['participant_id'];
 
         // Проверяем введенные данные
-        if(empty($participant_id)) {
+        if (empty($participant_id)) {
             $this->error = 'Заполните пустые поля.';
             return false;
         }
@@ -633,16 +643,16 @@ class Competition extends Model
         $user = $this->db->delete("DELETE FROM `users_competition` WHERE `user_id` = :participatn_id AND `competition_id` = :competition_id", $params);
 
         return true;
-
     }
 
     // Метод удаления критериев из конкурса
-    public function deleteCriterionCompetition($post, $id) {
+    public function deleteCriterionCompetition($post, $id)
+    {
 
         $criterion_id = $post['criterion_id'];
 
         // Проверяем введенные данные
-        if(empty($criterion_id)) {
+        if (empty($criterion_id)) {
             $this->error = 'Заполните пустые поля.';
             return false;
         }
@@ -654,16 +664,16 @@ class Competition extends Model
         $user = $this->db->delete("DELETE FROM evaluation_criterion WHERE `evaluation_criterion`.`id` = :id", $params);
 
         return true;
-
     }
 
     // Метод удаления экспертов из конкурса
-    public function deleteExpertCompetition($post, $id) {
+    public function deleteExpertCompetition($post, $id)
+    {
 
         $expert_id = $post['expert_id'];
 
         // Проверяем введенные данные
-        if(empty($expert_id)) {
+        if (empty($expert_id)) {
             $this->error = 'Заполните пустые поля.';
             return false;
         }
@@ -676,11 +686,11 @@ class Competition extends Model
         $user = $this->db->delete("DELETE FROM `users_competition` WHERE `user_id` = :expert_id AND `competition_id` = :competition_id", $params);
 
         return true;
-
     }
 
     // Вывод одного конкурса и вывод критериев
-    public function getCriterionWithId($id) {
+    public function getCriterionWithId($id)
+    {
 
         $params = [
             'id' => $id,
@@ -693,7 +703,7 @@ class Competition extends Model
         FROM `evaluation_criterion` JOIN `competition` ON evaluation_criterion.competition_id = competition.id WHERE competition.id = :id', $params);
 
 
-        if(empty($result)) :
+        if (empty($result)) :
 
             $params = [
                 'id' => $id,
@@ -702,14 +712,12 @@ class Competition extends Model
             competition.date_beginning as competition_date_beginning, competition.expiration_date as competition_expiration_date, competition.status as competition_status, 
             competition.path as competition_path FROM `competition` WHERE competition.id = :id', $params);
 
-            if(empty($result)) {
+            if (empty($result)) {
                 View::errorCode(404);
             }
 
         endif;
 
         return $result;
-
     }
-
 }

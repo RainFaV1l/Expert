@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Янв 19 2023 г., 12:45
+-- Время создания: Окт 23 2023 г., 12:43
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.1.9
 
@@ -66,9 +66,7 @@ CREATE TABLE `competition` (
 --
 
 INSERT INTO `competition` (`id`, `name`, `description`, `date_beginning`, `expiration_date`, `status`, `path`) VALUES
-(8, 'Конкурс на дизайн проекта \"Квесты 2.0\"', 'Необходимо разработать дизайн проекта \"Квесты 2.0\". Дизайн должен быть красивым и стильным.', '2023-01-09 00:00:00', '2023-01-14 00:00:00', 1, 'public/images/1673279227casual-life-3d-desig.png'),
-(9, 'Конкурс на верстку проекта \"Квесты 2.0\"', 'Необходимо сверстать страницы проекта \"Квесты 2.0\" по макету figma', '2023-01-16 00:00:00', '2023-01-21 00:00:00', 1, 'public/images/1673279399bb3153.jpg'),
-(10, 'Конкурс на программирование проекта \"Квесты 2.0\"', 'Необходимо запрограммировать проект \"Квесты 2.0\"', '2023-01-23 00:00:00', '2023-01-29 00:00:00', 1, 'public/images/16732794576262e1508a0d5148237423.png');
+(1, 'Конкурс на лучший дизайн главной страницы клуба Паутины', 'Разработать дизайн главной страницы клуба паутины.', '2023-02-06 00:00:00', '2023-02-12 00:00:00', 1, 'public/images/1676366093WDfgh45v6bn.jpg');
 
 -- --------------------------------------------------------
 
@@ -128,16 +126,34 @@ CREATE TABLE `evaluation_criterion` (
 --
 
 INSERT INTO `evaluation_criterion` (`id`, `name`, `score`, `competition_id`, `type_id`) VALUES
-(8, 'Понятный дизайн', 4, 8, 2),
-(9, 'Наличие шапки', 1, 8, 1),
-(10, 'Наличие лэндинга', 10, 8, 2),
-(11, 'Наличие формы обратной связи', 6, 8, 1),
-(12, 'Наличие футера', 4, 8, 2),
-(13, 'Наличие шапки', 4, 9, 1),
-(14, 'Наличие лэндинга', 10, 9, 2),
-(15, 'Наличие формы обратной связи', 6, 9, 1),
-(16, 'Наличие футера', 4, 9, 1),
-(17, 'Программирование формы обратной связи (наличие ajax для отлично)', 12, 10, 2);
+(1, 'объем работы соответствует заданию', 3, 1, 2),
+(2, 'используются простые и понятные заголовки', 3, 1, 2),
+(3, 'реализован дизайн шапки', 1.5, 1, 1),
+(4, 'качество реализации дизайна шапки', 1.5, 1, 2),
+(5, 'реализован «Баннер с призывом вступить в клуб»', 3, 1, 1),
+(6, 'качество реализации «Баннер с призывом вступить в клуб»', 3, 1, 2),
+(7, 'реализован блок «Направления деятельности клуба»', 3, 1, 1),
+(8, 'качество реализации блока «Направления деятельности клуба»', 3, 1, 2),
+(9, 'реализован блок «Проекты»', 3, 1, 1),
+(10, 'качество реализации блока «Проекты»', 3, 1, 2),
+(11, 'реализован блок «Конкурсы»', 3, 1, 1),
+(12, 'качество реализации блока «Конкурсы»', 3, 1, 2),
+(13, 'реализован блок «Участники клуба»', 3, 1, 1),
+(14, 'качество реализации блока «Участники клуба»', 3, 1, 2),
+(15, 'реализован блок «Эксперты клуба»', 3, 1, 1),
+(16, 'качество реализации блока «Эксперты клуба»', 3, 1, 2),
+(17, 'реализован блок «Компетенции клуба»', 3, 1, 1),
+(18, 'качество реализации блока «Компетенции клуба»', 3, 1, 2),
+(19, 'реализован блок «Планы клуба»', 3, 1, 1),
+(20, 'качество реализации блока «Планы клуба»', 3, 1, 2),
+(21, 'реализован «Блок с призывом вступить в клуб»', 2, 1, 1),
+(22, 'качество реализации «Блок с призывом вступить в клуб»', 2, 1, 2),
+(23, 'реализован дизайн подвала', 1.5, 1, 1),
+(24, 'качество реализации дизайн подвала', 1.5, 1, 2),
+(25, 'используется преимущественно черные и белые цвета (допускается использование акцентных цветов)', 2, 1, 1),
+(26, 'реализован адаптив страниц', 3, 1, 1),
+(27, 'качество реализации адаптива страниц', 3, 1, 2),
+(28, 'Общие впечатления от дизайна', 6, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -162,15 +178,18 @@ CREATE TABLE `grade` (
 --
 
 INSERT INTO `grade` (`id`, `user_id`, `competition_id`, `evaluation_criterion_id`, `answer_id`, `expert_id`, `score`, `created_at`, `updated_at`) VALUES
-(1, 2, 8, 8, 3, 4, 4, '2023-01-09 17:41:16', '2023-01-09 17:41:16'),
-(2, 2, 8, 9, 1, 4, 0, '2023-01-09 17:41:19', '2023-01-09 17:41:19'),
-(3, 2, 8, 10, 4, 4, 5, '2023-01-09 17:41:21', '2023-01-09 17:41:21'),
-(4, 2, 8, 11, 3, 4, 6, '2023-01-09 17:41:23', '2023-01-09 17:41:23'),
-(5, 2, 9, 13, 3, 4, 4, '2023-01-09 17:47:27', '2023-01-09 17:47:27'),
-(6, 2, 9, 14, 4, 4, 5, '2023-01-09 17:47:35', '2023-01-09 17:47:35'),
-(7, 2, 9, 15, 1, 4, 0, '2023-01-09 17:55:55', '2023-01-09 17:55:55'),
-(8, 2, 9, 16, 3, 4, 4, '2023-01-09 17:56:26', '2023-01-09 17:56:26'),
-(9, 2, 8, 12, 3, 4, 4, '2023-01-19 09:41:40', '2023-01-19 09:41:40');
+(1, 6, 1, 1, 3, 2, 3, '2023-02-14 19:11:32', '2023-02-14 19:11:32'),
+(2, 6, 1, 2, 4, 2, 1.5, '2023-02-14 19:11:35', '2023-02-14 19:11:35'),
+(3, 6, 1, 4, 3, 2, 0, '2023-02-14 19:11:38', '2023-02-14 19:11:38'),
+(4, 6, 1, 3, 3, 2, 1.5, '2023-02-14 19:11:41', '2023-02-14 19:11:41'),
+(5, 5, 1, 1, 3, 4, 3, '2023-02-14 19:13:44', '2023-02-14 19:13:44'),
+(6, 5, 1, 2, 4, 4, 1.5, '2023-02-14 19:13:47', '2023-02-14 19:13:47'),
+(7, 5, 1, 3, 3, 4, 1.5, '2023-02-14 19:13:50', '2023-02-14 19:13:50'),
+(8, 5, 1, 5, 1, 4, 0, '2023-02-14 19:13:52', '2023-02-14 19:13:52'),
+(9, 6, 1, 5, 1, 2, 0, '2023-02-14 19:16:07', '2023-02-14 19:16:07'),
+(10, 6, 1, 6, 3, 2, 3, '2023-02-14 19:16:13', '2023-02-14 19:16:13'),
+(11, 6, 1, 7, 3, 2, 3, '2023-02-17 21:32:46', '2023-02-17 21:32:46'),
+(12, 6, 1, 8, 3, 2, 3, '2023-02-17 21:32:53', '2023-02-17 21:32:53');
 
 -- --------------------------------------------------------
 
@@ -181,10 +200,10 @@ INSERT INTO `grade` (`id`, `user_id`, `competition_id`, `evaluation_criterion_id
 CREATE TABLE `users` (
   `id` int NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `password` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
   `surname` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `patronymic` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `patronymic` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `role` int NOT NULL,
   `pautina_id` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
@@ -194,12 +213,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `name`, `surname`, `patronymic`, `role`, `pautina_id`) VALUES
-(1, 'admin@mail.ru', '$2y$10$Cb5nOMfHbALm572hIk3u6e7AvipatFUgCxmRefTJT8ZGM2dkvFZo2', 'Админ', 'Админский', 'Админович', 3, 100),
-(2, 'user@mail.ru', '$2y$10$48kPimOlPzmqNwImmmbgGOeNL2iNqYF59hsPb/Z/.3sBqUYHVfHSC', 'Пользователь', 'Пользовательский', 'Пользователь', 1, 20),
-(3, 'test@mail.ru', '$2y$10$e2Q5ZNbYa9xQGC2qzliPBOiDFc5lkvm0GmvqTKkfdM1H66aEFtzYy', 'Тест', 'Тестовый', 'Тестович', 1, 25),
-(4, 'expert@mail.ru', '$2y$10$BTIVF2ZoA0RcvOFMD9KKnOeOtp5GbEgnAmUYdf8GdDEEPDEhpCtCK', 'Эксперт', 'Экспретский', 'Экспертович', 2, 45),
-(5, 'expert2@mail.ru', '$2y$10$.H0D9Wjz8lRq2B86Qlwt2ORDBaJkxZkePwf1yynXNuRxMXxlfm/2y', 'Expert', 'Expert', 'Expert', 2, 11),
-(6, 'expert3@mail.ru', '$2y$10$vLxEM9RXNhmtVDZ8xTY2ze39EEXd7lwLa1DdKzVjbI421BxidKqba', 'expert3', 'expert3', 'expert3', 2, 25);
+(1, 'admin@example.com', '$2y$10$aDvHCdoOt9hhEFY2r68mHupRLO0aDFAszvEIbOEfkNb90oUEc.nSq', 'Админ', 'Админ', 'Админ', 3, 0),
+(2, 'expert1@example.com', '$2y$10$i9cg4eTOEvIIhLlGuR/ANOQz.QLzZtxZuxu1LjMV7UwbcEpLhZA4S', 'Expert1', 'Expert1', NULL, 2, 0),
+(3, 'expert2@example.com', '$2y$10$yaBX7gJSr4dkHovwQnUEuOpGXgG4whK.ba9gpBsLuMs.MWIZDa70u', 'Expert2', 'Expert2', NULL, 2, 0),
+(4, 'expert3@example.com', '$2y$10$AJg70AAxEhOoer1yVZtupu9wayV66rF9fPUFa4YCMbgYJhh55Ng2a', 'Expert3', 'Expert3', NULL, 2, 0),
+(5, 'test@mail.ru', '$2y$10$miMmxmK58kVsV4VyCpWAwOBcgf09CJwgHYpNY58Kccx3kpOiyb.p2', 'test', 'test', 'test', 1, 0),
+(6, 'test2', 'test2', 'test2', 'test2', 'test2', 1, 0),
+(7, 'test3', 'test3', 'test3', 'test3', 'test3', 1, 0),
+(8, 'test4', 'test4', 'test3', 'test4', 'test4', 1, 0),
+(9, 'test4', 'test4', 'test4', 'test4', 'test4', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -219,13 +241,14 @@ CREATE TABLE `users_competition` (
 --
 
 INSERT INTO `users_competition` (`id`, `competition_id`, `user_id`, `user_role`) VALUES
-(58, 8, 2, 1),
-(59, 8, 3, 1),
-(60, 8, 4, 2),
-(61, 8, 5, 2),
-(62, 9, 4, 2),
-(63, 9, 2, 1),
-(64, 10, 4, 2);
+(1, 1, 2, 2),
+(2, 1, 3, 2),
+(3, 1, 4, 2),
+(6, 1, 6, 1),
+(7, 1, 5, 1),
+(8, 1, 7, 1),
+(9, 1, 8, 1),
+(10, 1, 9, 1);
 
 -- --------------------------------------------------------
 
@@ -331,7 +354,7 @@ ALTER TABLE `answer`
 -- AUTO_INCREMENT для таблицы `competition`
 --
 ALTER TABLE `competition`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `competition_status`
@@ -349,25 +372,25 @@ ALTER TABLE `criterion_type`
 -- AUTO_INCREMENT для таблицы `evaluation_criterion`
 --
 ALTER TABLE `evaluation_criterion`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT для таблицы `grade`
 --
 ALTER TABLE `grade`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `users_competition`
 --
 ALTER TABLE `users_competition`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `user_role`

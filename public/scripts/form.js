@@ -17,7 +17,7 @@ $(document).ready(function () {
         let clickClass = $(this).attr("class");
 
         if(clickClass == 'deleteParticipants') {
-
+            return false;
         } else {
             // Отключаем стандартное срабатывание формы
             event.preventDefault();
@@ -36,7 +36,7 @@ $(document).ready(function () {
             data: new FormData(this),
 
             // Отключаем передачу заголовков
-            contentType: false,
+            contentType: 'application/json',
 
             // Отключаем хэширование
             cache: false,
@@ -46,6 +46,8 @@ $(document).ready(function () {
 
             // При успешной отправки формы
             success: function (result) {
+
+                console.log(result);
 
                 json = jQuery.parseJSON(result);
                 if(json.url) {

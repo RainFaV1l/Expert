@@ -18,7 +18,7 @@
                 <p class="name-input__auth">Введите балл за критерий</p>
                 <input
                     class="input__auth"
-                    type="number"
+                    type="text"
                     name="score"
                     id=""
                     placeholder="Введите балл за критерий"
